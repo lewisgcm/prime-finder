@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PrimeService {
+public final class PrimeService {
     private final ApplicationContext context;
 
     public PrimeService(ApplicationContext context) {

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-public class PrimesController {
+public final class PrimeController {
 
     private final PrimeService primeService;
     private final PrimeAlgorithm defaultAlgorithm;
 
-    public PrimesController(
+    public PrimeController(
         PrimeService primeService,
 
         @Value("${app.default-algorithm:BASIC}")
