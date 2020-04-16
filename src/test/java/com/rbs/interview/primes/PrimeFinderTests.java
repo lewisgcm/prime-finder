@@ -38,6 +38,14 @@ public class PrimeFinderTests {
 
     @ParameterizedTest
     @MethodSource("createFinders")
+    public void test_returns_correct_list_including_initial_if_prime(PrimeFinder finder) {
+        int[] result = finder.findPrimes(7);
+
+        assertThat(result).containsExactly(2, 3, 5, 7);
+    }
+
+    @ParameterizedTest
+    @MethodSource("createFinders")
     public void test_is_prime_is_correct_on_negative(PrimeFinder finder) {
         boolean result = finder.isPrime(-1);
 

@@ -28,7 +28,7 @@ public final class CachedPrimeFinder implements PrimeFinder {
 
         final int max = maxValue.get();
         if (initial <= max) {
-            return cache.headSet(initial)
+            return cache.headSet(initial, true)
                 .stream()
                 .mapToInt(Integer::intValue)
                 .toArray();
@@ -51,7 +51,7 @@ public final class CachedPrimeFinder implements PrimeFinder {
             logger.debug("Could not set upper bound of cached primes, another thread has already increased it.");
         }
 
-        return cache.headSet(initial)
+        return cache.headSet(initial, true)
             .stream()
             .mapToInt(Integer::intValue)
             .toArray();
