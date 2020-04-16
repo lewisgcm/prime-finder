@@ -7,15 +7,15 @@ public interface PrimeFinder {
 
     /**
      * Find primes in the range 0...initial
-     * @param initial The upper bound of the prime search
-     * @return An array of integers which are primes found within the search constraints
+     * @param initial   the upper bound of the prime search
+     * @return          an array of integers which are primes found within the search constraints
      */
     int[] findPrimes(int initial);
 
     /**
      * Checks whether a number is a prime
-     * @param number The number to check for primality
-     * @return True/False depending on whether the number is prime or not
+     * @param number    the number to check for primality
+     * @return          true or false depending on whether the number is prime or not
      */
     default boolean isPrime(int number) {
         if (number <= 1) {

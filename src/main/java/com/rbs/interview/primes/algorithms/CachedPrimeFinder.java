@@ -1,5 +1,7 @@
 package com.rbs.interview.primes.algorithms;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -11,6 +13,7 @@ public final class CachedPrimeFinder implements PrimeFinder {
 
     private static final AtomicInteger maxValue = new AtomicInteger(0);
     private static final ConcurrentSkipListSet<Integer> cache = new ConcurrentSkipListSet<>();
+    private static final Logger logger = LoggerFactory.getLogger(CachedPrimeFinder.class);
 
     /**
      * Find primes using a caching parallel algorithm.
@@ -42,7 +45,11 @@ public final class CachedPrimeFinder implements PrimeFinder {
 
         // Set the max value based on our initial search term if greater than known current max,
         // again to handle currency issues with multiple threads searching for primes.
-        maxValue.updateAndGet(value -> Math.max(value, initial));
+        if (maxValue.updateAndGet(value -> Math.max(value, initial)) == initial) {
+            logger.info("Upper bound of cached primes increased from {} to {}", max, initial);
+        } else {
+            logger.debug("Could not set upper bound of cached primes, another thread has already increased it.");
+        }
 
         return cache.headSet(initial)
             .stream()
