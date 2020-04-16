@@ -36,6 +36,17 @@ public class PrimeControllerTests {
     }
 
     @Test
+    public void test_that_basic_algorithm_can_be_used() throws Exception {
+        this.mockMvc
+            .perform(MockMvcRequestBuilders.get("/primes/2?algorithm=BASIC"))
+            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+
+        Mockito
+            .verify(this.mockPrimeService, Mockito.times(1))
+            .findPrimes(2, PrimeAlgorithm.BASIC);
+    }
+
+    @Test
     public void test_that_parallel_algorithm_can_be_used() throws Exception {
         this.mockMvc
             .perform(MockMvcRequestBuilders.get("/primes/2?algorithm=PARALLEL"))
