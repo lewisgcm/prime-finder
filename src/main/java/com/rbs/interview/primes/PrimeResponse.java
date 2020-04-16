@@ -6,13 +6,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlRootElement(name="Primes")
-public final class PrimeResponseDto {
+public final class PrimeResponse {
     private int initial;
     private int[] primes;
 
-    private PrimeResponseDto() {}
+    private PrimeResponse() {}
 
-    public PrimeResponseDto(int initial, int[] primes) {
+    public PrimeResponse(int initial, int[] primes) {
         this.initial = initial;
         this.primes = primes;
     }

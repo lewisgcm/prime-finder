@@ -12,6 +12,14 @@ public final class CachedPrimeFinder implements PrimeFinder {
     private static final AtomicInteger maxValue = new AtomicInteger(0);
     private static final ConcurrentSkipListSet<Integer> cache = new ConcurrentSkipListSet<>();
 
+    /**
+     * Find primes using a caching parallel algorithm.
+     * This algorithm will cache a set of known primes and the upper bound of those primes, any searches within the
+     * upper bound will simply return a copy of this set. Any search outwith those bounds will increase the upperbound
+     * and add new primes to the set.
+     * New primes are found using a parallel search.
+     * {@inheritDoc}
+     */
     @Override
     public int[] findPrimes(int initial) {
 
@@ -23,12 +31,17 @@ public final class CachedPrimeFinder implements PrimeFinder {
                 .toArray();
         }
 
+        // Search for new primes, adding them to our cache set and updating our known max value.
+        // We conditionally set the max value if the new value would be greater than the old to handle
+        // race conditions overwriting the value.
         IntStream.range(max, initial + 1)
             .parallel()
             .filter(this::isPrime)
             .peek(cache::add)
             .forEach((i) -> maxValue.updateAndGet(value -> Math.max(value, i)));
 
+        // Set the max value based on our initial search term if greater than known current max,
+        // again to handle currency issues with multiple threads searching for primes.
         maxValue.updateAndGet(value -> Math.max(value, initial));
 
         return cache.headSet(initial)

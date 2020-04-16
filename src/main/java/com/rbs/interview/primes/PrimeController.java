@@ -25,7 +25,7 @@ public final class PrimeController {
     }
 
     @GetMapping(value = "primes/{initial:\\d+}")
-    public PrimeResponseDto getPrime(
+    public PrimeResponse getPrime(
         @PathVariable Integer initial,
         @RequestParam Optional<PrimeAlgorithm> algorithm
     ) {
@@ -34,6 +34,6 @@ public final class PrimeController {
             algorithm.orElse(defaultAlgorithm)
         );
 
-        return new PrimeResponseDto(initial, primes);
+        return new PrimeResponse(initial, primes);
     }
 }

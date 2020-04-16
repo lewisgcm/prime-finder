@@ -1,19 +1,14 @@
 package com.rbs.interview.primes;
 
-import com.rbs.interview.primes.algorithms.PrimeFinder;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
+/**
+ * The prime service interface is used to find primes using the supplied algorithm.
+ */
+public interface PrimeService {
 
-@Service
-public final class PrimeService {
-    private final ApplicationContext context;
-
-    public PrimeService(ApplicationContext context) {
-        this.context = context;
-    }
-
-    public int[] findPrimes(int initial, PrimeAlgorithm algorithm) {
-        PrimeFinder finder = this.context.getBean(algorithm.getAlgorithm());
-        return finder.findPrimes(initial);
-    }
+    /**
+     * @param initial The upper bound of the prime search, i return all primes from 0...initial
+     * @param algorithm The algorithm to use when searching for primes
+     * @return The array of primes found from 0...initial
+     */
+    int[] findPrimes(int initial, PrimeAlgorithm algorithm);
 }

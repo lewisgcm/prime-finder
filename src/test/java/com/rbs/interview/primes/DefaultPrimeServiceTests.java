@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.context.ApplicationContext;
 
-public class PrimeServiceTests {
+public class DefaultPrimeServiceTests {
 
     @Test
     public void test_that_prime_finder_is_resolved_and_called() {
@@ -21,7 +21,7 @@ public class PrimeServiceTests {
             .thenReturn(new int[] {1});
 
         final int initial = 5;
-        PrimeService service = new PrimeService(mockApplicationContext);
+        DefaultPrimeService service = new DefaultPrimeService(mockApplicationContext);
         service.findPrimes(initial, PrimeAlgorithm.BASIC);
 
         Mockito
